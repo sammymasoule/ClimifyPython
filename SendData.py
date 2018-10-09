@@ -4,11 +4,11 @@ import json
 import threading
 
 # Variables
-address = "192.168.1.98:8080"
+address = "192.168.43.66:8080"
 MQTT_HOST = "se2-webapp04.compute.dtu.dk"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE_INTERVAL = 45
-MQTT_TOPIC = "test"
+MQTT_TOPIC = "testing"
 
 
 def get_temperature():
@@ -70,11 +70,8 @@ def on_publish(client, userdata, mid):
 
 
 def on_connect(client, userdata, flags, rc):
-    MQTT_MSG = json.dumps({"name": "Danfoss termostat",
-                           "batterylevel": ""+get_battery()+"",
-                           "data": ""+get_temperature()+"",
-                           "unitOfMeasurement": "degrees",
-                           "alarm": ""+get_alarm()+""})
+    print("testing" + get_temperature())
+    MQTT_MSG = "temperature,building=\"101\" value=%s batterylvl=%s" % (get_temperature(), get_battery())
     client.subscribe(MQTT_TOPIC)
     client.publish(MQTT_TOPIC, MQTT_MSG)
 
