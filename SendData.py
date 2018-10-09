@@ -71,7 +71,7 @@ def on_publish(client, userdata, mid):
 
 def on_connect(client, userdata, flags, rc):
     print("testing" + get_temperature())
-    MQTT_MSG = "temperature,building=\"101\" value=%s batterylvl=%s" % (get_temperature(), get_battery())
+    MQTT_MSG = "temperature,building=\"101\" value=%s,batterylvl=%s" % (get_temperature(), get_battery())
     client.subscribe(MQTT_TOPIC)
     client.publish(MQTT_TOPIC, MQTT_MSG)
 
