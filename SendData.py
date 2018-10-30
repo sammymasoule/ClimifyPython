@@ -81,7 +81,6 @@ def on_message(client, userdata, msg):
     print(msg.payload)
     payload = json.loads(msg.payload)
     print(payload['sepalWidth'])
-    client.disconnect()
 
 
 def run_script():
