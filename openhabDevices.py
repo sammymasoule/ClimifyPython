@@ -56,16 +56,10 @@ def handle_message(msg):
 
             data = json.loads(create_data)
             print(data)
-            send_message(create_data)
             post_actuator(data)
 
 
 # Send device list
-def send_message(MQTT_MSG):
-    client.publish(MQTT_PUB_TOPIC, MQTT_MSG)
-
-
-# Insert data into mySQL on SE2-vm
 def post_actuator(data):
     post = requests.post("http://se2-webapp04.compute.dtu.dk/api/api-post-actuators.php", data);
 
