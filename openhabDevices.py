@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# -*- coding: iso-8859-15 -*-
-import os, sys
 import json
 import paho.mqtt.client as mqtt
 import requests
