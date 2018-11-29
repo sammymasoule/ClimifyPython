@@ -8,7 +8,7 @@ address = "192.168.43.66:8080"
 MQTT_HOST = "se2-webapp04.compute.dtu.dk"
 MQTT_PORT = 1883
 MQTT_KEEPALIVE_INTERVAL = 45
-MQTT_TOPIC = "testing"
+MQTT_TOPIC = "TempData"
 
 
 def get_temperature():
@@ -71,16 +71,16 @@ def on_publish(client, userdata, mid):
 
 def on_connect(client, userdata, flags, rc):
     print("testing" + get_temperature())
-    MQTT_MSG = "temperature,building=\"101\" value=%s,batterylvl=%s" % (get_temperature(), get_battery())
+    MQTT_MSG = "Sensor2,building=\"101\" Temperature=%s,batterylvl=%s" % (get_temperature(), get_battery())
     client.subscribe(MQTT_TOPIC)
     client.publish(MQTT_TOPIC, MQTT_MSG)
-
 
 def on_message(client, userdata, msg):
     print("Topic: "+msg.topic)
     print(msg.payload)
     payload = json.loads(msg.payload)
     print(payload['sepalWidth'])
+    client.disconnect()
 
 
 def run_script():

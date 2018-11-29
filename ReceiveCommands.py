@@ -3,7 +3,7 @@ import requests
 import re
 
 # Variables
-address = "192.168.1.98:8080"
+address = "localhost:8080"
 headers = {'Content-type': 'text/plain'}
 
 
