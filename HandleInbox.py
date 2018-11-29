@@ -3,7 +3,7 @@ import requests
 import json
 
 # Variables
-address = "localhost:8080"
+address = "169.254.12.116:8080"
 headers = {'Content-type': 'text/plain'}
 MQTT_HOST = "se2-webapp04.compute.dtu.dk"
 MQTT_PORT = 1883
@@ -24,14 +24,12 @@ def handle_message(msg):
         print("Accepting Device")
         # Accept devices rest url
 
-        thingUID = repr(msg.payload)
-        print(thingUID)
-        print(type(thingUID))
+        json_data = json.loads(msg.payload)
+        print(json_data['UUID'])
 
-        #data = json.dumps(thingUID)
-        #device_url = "http://" + address + "/rest//inbox/" + thingUID[0]['UUID'] + "/approve"
-        #response = requests.post(device_url, thingUID[0]['label'])
-        #print(repr(response))
+        device_url = "http://" + address + "/rest/inbox/" + json_data['UUID'] + "/approve"
+        response = requests.post(device_url)
+        print(repr(response.reason))
 
     if msg.topic in "Disconnect/Devices":
         print("Disconnect Device")
