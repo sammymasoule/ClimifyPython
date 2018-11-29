@@ -11,7 +11,7 @@ MQTT_KEEPALIVE_INTERVAL = 45
 
 
 def on_connect(client, userdata, flags, rc):
-    client.subscribe("Accept/Devices")
+    client.subscribe("Disconnect/Devices")
 
 
 def on_message(client, userdata, msg):
@@ -20,25 +20,16 @@ def on_message(client, userdata, msg):
 
 # Recieve device list request
 def handle_message(msg):
-    if msg.topic in "Accept/Devices":
-        print("Accepting Device")
-        # Accept devices rest url
-
+    if msg.topic in "Disconnect/Devices":
+        print("Disconnect Device")
         json_data = json.loads(msg.payload)
         print(json_data['UUID'])
 
-        device_url = "http://" + address + "/rest/inbox/" + json_data['UUID'] + "/approve"
-        response = requests.post(device_url)
+        device_url = "http://" + address + "/rest/things/" + json_data['UUID']
+        response = requests.delete(device_url)
         print(repr(response.reason))
 
-    if msg.topic in "Disconnect/Devices":
-        print("Disconnect Device")
-        # Temperature rest url
-        print(repr(msg.payload))
-        thingUID = repr(msg.payload)
-        device_url = "http://" + address + "/rest//inbox/" + thingUID[0]
-        response = requests.delete(device_url, thingUID[0])
-        print(repr(response))
+
 
 
 # Connection
