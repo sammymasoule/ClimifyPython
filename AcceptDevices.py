@@ -32,11 +32,11 @@ def handle_message(msg):
         print(repr(response.reason))
 
         if repr(response.reason).__contains__("OK"):
-            uuid = json_data['UUID'].replace(":", "¥")
+            uuid = json_data['UUID']
             create_data = "{\n" + "\"UniqueID\": " + "\"" + uuid + "\"" "\n}"
             data = json.loads(create_data)
             post_actuator(data)
-            
+
 
 def post_actuator(data):
     post = requests.post("http://se2-webapp04.compute.dtu.dk/api/api-change-actuator-status.php", data);

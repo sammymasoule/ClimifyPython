@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
+import os, sys
 import json
 import paho.mqtt.client as mqtt
 import requests
@@ -41,14 +44,11 @@ def handle_message(msg):
             print(repr(response))
             tempvar = json.loads(response.content)
 
-            tmplabel = tempvar[0]['label']
-            label = tmplabel.replace(':', '¥')
+            label = tempvar[0]['label']
 
-            tmpgenericclass = tempvar[0]['properties']['zwave_class_generic']
-            genericclass = tmpgenericclass.replace(':', '¥')
+            genericclass = tempvar[0]['properties']['zwave_class_generic']
 
-            tmpthinguid = tempvar[0]['thingUID']
-            thinguid = tmpthinguid.replace(':', '¥')
+            thinguid = tempvar[0]['thingUID']
 
             create_data = "{\n" + "\"label\": " + "\"" + label + "\"" + ",\n" + \
                           "\"zwave_class_generic\": " + "\"" + genericclass + "\"" + ",\n" + \
